@@ -1,0 +1,40 @@
+# youtubedownloader.kv
+BoxLayout:
+    orientation: 'vertical'
+    MDTopAppBar:
+        title: "YouTube Downloader"
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(10)
+        spacing: dp(10)
+        MDTextField:
+            id: url_input
+            hint_text: "Enter YouTube Video URL"
+            helper_text_mode: "on_focus"
+            helper_text: "https://www.youtube.com/watch?v=xxxxxx"
+            icon_right: "youtube"
+            icon_right_color: app.theme_cls.primary_color
+
+        BoxLayout:
+            orientation: 'horizontal'
+            spacing: dp(10)
+            MDLabel:
+                text: "Quality:"
+                halign: 'center'
+            Button:
+                id: quality_button
+                text: 'Medium'
+                #on_release: app.root.ids.screen_manager.get_screen('main').show_quality_menu()    
+        BoxLayout:
+            orientation: 'horizontal'
+            spacing: dp(10)
+            Button:
+                text: 'Download Video'
+                on_release: app.download_video()
+            Button:
+                text: 'Download Audio (MP3)'
+                on_release: app.download_audio()
+
+        ScrollView:
+            MDList:
+                id: download_list
