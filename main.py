@@ -9,36 +9,37 @@ from download_manager import DownloadManager
 from utils import validate_url, format_bytes
 from kivymd.uix.menu import MDDropdownMenu
 from kivy.uix.screenmanager import Screen
+from kivy.metrics import dp
 
 
 class YouTubeDownloaderApp(MDApp):
     def build(self):
         self.download_manager = DownloadManager()
         self.root = Builder.load_file('youtubedownloader.kv')
+        self.create_quality_menu()
         return self.root
 
-class MainScreen(Screen):
-    def __init__(self, **kwargs):
-        super(MainScreen, self).__init__(**kwargs)
-        self.create_quality_menu()
-
-
     def create_quality_menu(self):
-        quality_items = [{"text": "Low"}, {"text": "Medium"}, {"text": "High"}]
+        quality_items = [
+                        {
+                "viewclass": "OneLineListItem",
+                "icon": "git",
+                "text": f"{i}",
+                "height": dp(56),
+                "on_release": lambda x=f"{i}": self.set_item(x),
+            } for i in ("Low","Medium","High")
+        ]
         self.quality_menu = MDDropdownMenu(
-            caller=self.root.ids['quality_button'],
+            caller=self.root.ids.quality_button,
             items=quality_items,
             width_mult=4,
-            #callback=self.set_quality
-            callback=self.quality_callback
         )
-        self.ids['quality_button'].bind(on_release=self.quality_menu.open)
-
-    def quality_callback(self, instance):
-        self.ids['quality_button'].text = instance.text
+        self.quality_menu.bind()
+   
+    def set_quality(self, text_items):
+        self.screen.ids.drop_item.set_quality(text_item)
         self.quality_menu.dismiss()
-
-
+    
 
     def download_video(self):
         url = self.root.ids['url_input'].text
