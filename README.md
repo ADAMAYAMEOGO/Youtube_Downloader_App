@@ -1,6 +1,6 @@
 # Youtube_Downloader_App
 Application de téléchargement de vidéos YouTube
-Cette application vous permet de télécharger des vidéos YouTube en utilisant Python, KivyMD et youtube-dl.
+Cette application vous permet de télécharger des vidéos YouTube.
 
 Installation
 Pour installer l'application, suivez les instructions ci-dessous :
